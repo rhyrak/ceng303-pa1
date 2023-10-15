@@ -1,3 +1,11 @@
+/*
+20050111011, İBRAHİM BAHÇA
+20050111034, MERTER ÇOBAN
+20050111008, SELÇUK GENÇAY
+21050141038, YOUSIF HARITH SUHAIL SUHAIL
+
+ */
+
 public class StaticArray implements Benchmarkable {
 
     /* variables */
