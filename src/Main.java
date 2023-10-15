@@ -26,19 +26,21 @@ public class Main {
         linkedList = new SLL();
 
         // perform 50M test
-        System.out.println();
+        System.out.println();   // padding
         System.out.println("50M integer benchmark:");
         benchmark(array, "array", 1, ints50mil, 0, 50_000_000, 45_000_000, 9);
         benchmark(linkedList, "linked list", 2, ints50mil, 0, 45_000_000, 45_000_000, 9);
         benchmark(dynamicArray, "dynamic array", 3, ints50mil, 0, 50_000_000, 45_000_000, 9);
     }
 
+    /* perform tests and measure their time */
     private static void benchmark(Benchmarkable benchmarkable, String type, int order, int[] source,
                                   int insertIndex1, int insertIndex2,
                                   int readIndex1, int readIndex2) {
+        /* variables */
         long start, end;
         double elapsed;
-        // build
+        // build and measure build time
         start = System.nanoTime();
         benchmarkable.build(source);
         end = System.nanoTime();
@@ -46,12 +48,14 @@ public class Main {
         System.out.println(order + "a) The integer " + type + " structure is built in "
                 + String.format("%.4f", elapsed) + " milliseconds");
 
-        int random = (int) (end - start);
-        // insert into the index "insertIndex1"
+        int random = (int) (end - start);   // random integer to insert
+        // insert into the index "insertIndex1" and measure insertion time
         start = System.nanoTime();
         benchmarkable.insert(insertIndex1, random);
         end = System.nanoTime();
         elapsed = (end - start) / 1_000_000.0;
+
+        /* logic to format strings according to their data structure and inserted index */
         if (insertIndex1 == 0) {
             System.out.println(order + "b) An integer is inserted into the first index of the " + type + " in "
                     + String.format("%.4f", elapsed) + " milliseconds");
@@ -61,12 +65,14 @@ public class Main {
         }
 
 
-        random = (int) (end - start);
-        // insert into the index "insertIndex2"
+        random = (int) (end - start);   // random integer to insert
+        // insert into the index "insertIndex2" and measure insertion time
         start = System.nanoTime();
         benchmarkable.insert(insertIndex2, random);
         end = System.nanoTime();
         elapsed = (end - start) / 1_000_000.0;
+
+        /* logic to format strings according to their data structure and inserted index */
         if (insertIndex2 == source.length) {
             System.out.println(order + "c) An integer is inserted into the last index of the " + type + " in "
                     + String.format("%.4f", elapsed) + " milliseconds");
@@ -76,7 +82,7 @@ public class Main {
         }
 
         int read;
-        // read item at index "readIndex1"
+        // read item at index "readIndex1" and measure read time
         start = System.nanoTime();
         read = benchmarkable.read(readIndex1);
         end = System.nanoTime();
@@ -84,7 +90,7 @@ public class Main {
         System.out.println(order + "d) An integer, which is " + read + ", is read from the index " + readIndex1 + " of the "
                 + type + " in " + String.format("%.4f", elapsed) + " milliseconds.");
 
-        // read item at index "readIndex2"
+        // read item at index "readIndex2" and measure read time
         start = System.nanoTime();
         read = benchmarkable.read(readIndex2);
         end = System.nanoTime();
@@ -93,6 +99,7 @@ public class Main {
                 + type + " in " + String.format("%.4f", elapsed) + " milliseconds.");
     }
 
+    /* initializer method to populate buffers with data from files and check for errors */
     private static void init(String[] args) {
         // check arg count
         if (args.length < 2) {

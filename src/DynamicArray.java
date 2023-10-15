@@ -1,19 +1,23 @@
 public class DynamicArray implements Benchmarkable{
+
+    /* variables */
     private int[] arr;
     private int maxSize = 0;
     private int size;
 
-
+    /* default constructor */
     public DynamicArray() {
 
         arr = new int[maxSize];
         size = 0;
     }
 
+    /* method to expand array by doubling the size */
     public int[] doubleArray(){
-        maxSize = maxSize * 2;
-        int[] newArr = new int[maxSize];
+        maxSize = maxSize * 2;  // double max capacity
+        int[] newArr = new int[maxSize];    // new array
 
+        /* copy old array to new array */
         for(int i = 0; i < size; i++){
             newArr[i] = arr[i];
         }
@@ -21,10 +25,12 @@ public class DynamicArray implements Benchmarkable{
         return newArr;
     }
 
+    /* method to shrink array to half its size */
     public int[] halveArray(){
-        maxSize = maxSize / 2;
-        int[] newArr = new int[maxSize];
+        maxSize = maxSize / 2;  // halve max capacity
+        int[] newArr = new int[maxSize];    // new array
 
+        /* copy old array to new array */
         for(int i = 0; i < size; i++){
             newArr[i] = arr[i];
         }
@@ -32,6 +38,7 @@ public class DynamicArray implements Benchmarkable{
         return newArr;
     }
 
+    /* insert data into the last index of the array */
     public void addLast(int num) {
         if(size == maxSize){
             if(maxSize == 0)
@@ -45,114 +52,57 @@ public class DynamicArray implements Benchmarkable{
 
         }
 
-        //return display();
     }
 
-
-    public String addPosition(int pos, int num) {
+    /* shift-insert helper method */
+    public void addPosition(int pos, int num) {
         if(pos < 0 || pos > size){
-            return "error\n";
+            throw new IndexOutOfBoundsException("Index: " + pos + " is out of range for size: " + size + ".");
         }
 
+        /* check if array expansion is needed */
         if(size == maxSize){
             arr = doubleArray();
         }
 
+        /* shift array starting from the back to make the specified index empty and ready for data insertion */
         if(size < maxSize && pos <= size){
-
             for(int i = size-1; i > pos-1; i--){
                 arr[i+1] = arr[i];
-
             }
 
             arr[pos] = num;
             size++;
 
         }
-
-        return "ok";
-        //return display();
     }
 
-    public String removeLast() {
-        if(size < 0){
-            return "error\n";
-        }
-
-        size--;
-        float temp = (float)size;
-        if(temp/maxSize <= 0.25){
-            arr = halveArray();
-        }
-
-        return "ok";
-        //return display();
-    }
-
-    public String removePosition(int pos) {
-        if(size <= 0 || pos > size-1){
-            return "error\n";
-        }
-
-        if(size-1 >= pos){
-
-            for(int i = 0; i < size-1; i++){
-                arr[i] = arr[i+1];
-            }
-
-            //arr[size-1] = null;
-            size--;
-            float temp = (float)size;
-            if(temp/maxSize == 0.25){
-                arr = halveArray();
-            }
-        }
-
-        return "ok";
-        //return display();
-    }
-
-    public String display() {
-        String out = "";
-
-        for(int i = 0; i < size; i++){
-            out = out + arr[i] + " ";
-        }
-
-        out = out + "(" + size + "/" + maxSize + ")" + '\n';
-        return out;
-    }
-
-    public int displayIndex(int index){
-        if(index >= size)
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for Dynamic Array.");
-        else{
-            return arr[index];
-        }
-
-    }
-
+    /* populate DS with data */
     @Override
     public void build(int[] integers) {
         for(int num : integers)
             addLast(num);
     }
 
+    /* shift-insert into first index */
     @Override
     public void insertFirst(int value) {
         addPosition(0, value);
     }
 
+    /* shift-insert into last index */
     @Override
     public void insertLast(int value) {
         addPosition(size - 1, value);
     }
 
+    /* shift-insert into specified index */
     @Override
     public void insert(int index, int value) {
         addPosition(index, value);
     }
 
+    /* read data from specified index */
     @Override
     public int read(int index) {
         return arr[index];

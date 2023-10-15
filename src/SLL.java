@@ -36,6 +36,7 @@ public class SLL implements Benchmarkable {
             return nullNode;
         }
 
+        // speed optimization
         if (index == 0)
             return head;
         if (index == size - 1)
@@ -63,6 +64,7 @@ public class SLL implements Benchmarkable {
         }
     }
 
+    /* populate DS with data */
     @Override
     public void build(int[] integers) {
         // populate linked list with numbers from buffer array
@@ -97,6 +99,7 @@ public class SLL implements Benchmarkable {
             insertFirst(value);
     }
 
+    /* insert a new node at the provided index */
     @Override
     public void insert(int index, int value) {
         // check if index is out of range
@@ -122,6 +125,7 @@ public class SLL implements Benchmarkable {
         }
     }
 
+    /* read data from the provided index node */
     @Override
     public int read(int index) {
         // check if index is out of range
@@ -136,6 +140,7 @@ public class SLL implements Benchmarkable {
         return node.getValue();
     }
 
+    /* anonymous complementary inner-class */
     static class Node {
         // variables
         private int value;
