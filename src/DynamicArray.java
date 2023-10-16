@@ -3,10 +3,9 @@
 20050111034, MERTER ÇOBAN
 20050111008, SELÇUK GENÇAY
 21050141038, YOUSIF HARITH SUHAIL SUHAIL
-
  */
 
-public class DynamicArray implements Benchmarkable{
+public class DynamicArray implements Benchmarkable {
 
     /* variables */
     private int[] arr;
@@ -21,12 +20,12 @@ public class DynamicArray implements Benchmarkable{
     }
 
     /* method to expand array by doubling the size */
-    public int[] doubleArray(){
+    public int[] doubleArray() {
         maxSize = maxSize * 2;  // double max capacity
         int[] newArr = new int[maxSize];    // new array
 
         /* copy old array to new array */
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             newArr[i] = arr[i];
         }
 
@@ -34,12 +33,12 @@ public class DynamicArray implements Benchmarkable{
     }
 
     /* method to shrink array to half its size */
-    public int[] halveArray(){
+    public int[] halveArray() {
         maxSize = maxSize / 2;  // halve max capacity
         int[] newArr = new int[maxSize];    // new array
 
         /* copy old array to new array */
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             newArr[i] = arr[i];
         }
 
@@ -48,13 +47,13 @@ public class DynamicArray implements Benchmarkable{
 
     /* insert data into the last index of the array */
     public void addLast(int num) {
-        if(size == maxSize){
-            if(maxSize == 0)
+        if (size == maxSize) {
+            if (maxSize == 0)
                 maxSize++;
             arr = doubleArray();
         }
 
-        if(size < maxSize){
+        if (size < maxSize) {
             arr[size] = num;
             size++;
 
@@ -64,19 +63,19 @@ public class DynamicArray implements Benchmarkable{
 
     /* shift-insert helper method */
     public void addPosition(int pos, int num) {
-        if(pos < 0 || pos > size){
+        if (pos < 0 || pos > size) {
             throw new IndexOutOfBoundsException("Index: " + pos + " is out of range for size: " + size + ".");
         }
 
         /* check if array expansion is needed */
-        if(size == maxSize){
+        if (size == maxSize) {
             arr = doubleArray();
         }
 
         /* shift array starting from the back to make the specified index empty and ready for data insertion */
-        if(size < maxSize && pos <= size){
-            for(int i = size-1; i > pos-1; i--){
-                arr[i+1] = arr[i];
+        if (size < maxSize && pos <= size) {
+            for (int i = size - 1; i > pos - 1; i--) {
+                arr[i + 1] = arr[i];
             }
 
             arr[pos] = num;
@@ -88,7 +87,7 @@ public class DynamicArray implements Benchmarkable{
     /* populate DS with data */
     @Override
     public void build(int[] integers) {
-        for(int num : integers)
+        for (int num : integers)
             addLast(num);
     }
 

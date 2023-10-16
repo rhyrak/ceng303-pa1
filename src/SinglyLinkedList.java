@@ -3,18 +3,17 @@
 20050111034, MERTER ÇOBAN
 20050111008, SELÇUK GENÇAY
 21050141038, YOUSIF HARITH SUHAIL SUHAIL
-
  */
 
 // Singly-Linked list class
-public class SLL implements Benchmarkable {
+public class SinglyLinkedList implements Benchmarkable {
     // variables
     int size;
     Node head;
     Node tail;
 
     // Default constructor
-    public SLL() {
+    public SinglyLinkedList() {
         head = null;
         tail = null;
         size = 0;

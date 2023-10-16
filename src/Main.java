@@ -3,7 +3,6 @@
 20050111034, MERTER ÇOBAN
 20050111008, SELÇUK GENÇAY
 21050141038, YOUSIF HARITH SUHAIL SUHAIL
-
  */
 
 import java.io.File;
@@ -20,7 +19,7 @@ public class Main {
         // init data structures for 1M test
         Benchmarkable array = new StaticArray(1_000_000);
         Benchmarkable dynamicArray = new DynamicArray();
-        Benchmarkable linkedList = new SLL();
+        Benchmarkable linkedList = new SinglyLinkedList();
 
         // perform 1M test
         System.out.println("1M integer benchmark:");
@@ -31,7 +30,7 @@ public class Main {
         // init data structures for 50M test
         array = new StaticArray(50_000_000);
         dynamicArray = new DynamicArray();
-        linkedList = new SLL();
+        linkedList = new SinglyLinkedList();
 
         // perform 50M test
         System.out.println();   // padding
@@ -48,6 +47,7 @@ public class Main {
         /* variables */
         long start, end;
         double elapsed;
+        System.out.println("Benchmarking " + type + " data structure.");
         // build and measure build time
         start = System.nanoTime();
         benchmarkable.build(source);
